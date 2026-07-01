@@ -171,3 +171,83 @@ The assignment brief mentions a failing GitHub Actions pipeline, but there's no 
 ## Wrap-up
 
 Went through each reported issue one at a time, figured out what was actually causing it rather than guessing, and made the minimal change needed to fix it. Everything here touches Docker's build setup, Compose's service config, the Postgres connection, the Nginx reverse proxy, the Kubernetes deployment, and the app's health check — nothing outside of that was touched.
+
+---
+
+# Local Validation
+
+After applying all the fixes, I wanted to make sure the project was actually working instead of assuming the changes were correct. I rebuilt the project from scratch and verified each component locally using Docker Desktop.
+
+## Build Verification
+
+I rebuilt the application using Docker Compose.
+
+```bash
+docker compose build
+```
+
+The build completed successfully without any Docker build errors, confirming that the Dockerfile and build context were correctly configured.
+
+### Docker Build Result
+
+![Docker Build Successful](docker%20build%20image%20.jpg)
+
+---
+
+## Running the Application
+
+After the build completed successfully, I started the complete application stack.
+
+```bash
+docker compose up
+```
+
+Docker Compose successfully created and started the required containers:
+
+- Node.js Application
+- PostgreSQL Database
+- Nginx Reverse Proxy
+
+The application was then accessed through the Nginx reverse proxy using:
+
+```
+http://localhost
+```
+
+The expected response was returned successfully.
+
+### Running Application
+
+![Application Running Successfully](pipeline%20working%20successfully%20.jpg)
+
+---
+
+## Verification Summary
+
+During testing, I verified the following:
+
+- Docker image builds successfully.
+- Docker Compose starts all required services.
+- PostgreSQL initializes successfully.
+- Nginx proxies requests correctly.
+- The Node.js application is reachable through Nginx.
+- Accessing `http://localhost` returns the expected **"Hello"** response.
+
+This confirms that the issues provided in the assignment were successfully identified, resolved, and validated in a local environment.
+
+---
+
+## Notes
+
+During the first application startup, I observed a temporary database connection error (`ECONNREFUSED`) because the application attempted to connect before PostgreSQL had fully completed its initialization. Once PostgreSQL finished starting, all services became available and the application worked as expected.
+
+For a production deployment, I would further improve this by adding:
+
+- PostgreSQL health checks
+- `depends_on` with `service_healthy`
+- Database connection retry logic in the application
+
+These improvements would make the application more resilient during container startup.
+
+
+
