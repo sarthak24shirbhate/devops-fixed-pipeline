@@ -190,7 +190,8 @@ The build completed successfully without any Docker build errors, confirming tha
 
 ### Docker Build Result
 
-![Docker Build Successful](docker%20build%20image%20.jpg)
+<img width="1586" height="567" alt="docker build image " src="https://github.com/user-attachments/assets/95fe80d6-5b2f-4d38-be5a-aec270fec2bc" />
+
 
 ---
 
@@ -218,7 +219,8 @@ The expected response was returned successfully.
 
 ### Running Application
 
-![Application Running Successfully](pipeline%20working%20successfully%20.jpg)
+<img width="1917" height="537" alt="pipeline working successfully " src="https://github.com/user-attachments/assets/542ef496-3132-4152-a77a-bc9d16f87875" />
+
 
 ---
 
