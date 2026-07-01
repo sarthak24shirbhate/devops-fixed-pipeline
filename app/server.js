@@ -9,6 +9,8 @@ const client=new Client({
  database:'appdb'
 });
 client.connect().catch(console.error);
-app.get('/health',(req,res)=>res.status(500).send("NOT OK"));
+app.get('/health', (req, res) => {
+  res.status(200).send("OK");
+});
 app.get('/',async(req,res)=>res.send("Hello"));
 app.listen(3000);
